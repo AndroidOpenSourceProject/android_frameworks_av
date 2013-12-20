@@ -1,0 +1,12 @@
+--- frameworks/av/media/libmedia/IAudioFlinger.cpp
++++ frameworks/av/media/libmedia/IAudioFlinger.cpp
+@@ -82,6 +86,9 @@
+ #ifdef QCOM_HARDWARE
+     CREATE_DIRECT_TRACK,
+ #endif
++#ifdef STE_AUDIO
++    READ_INPUT,
++#endif
+ };
+ 
+ class BpAudioFlinger : public BpInterface<IAudioFlinger>
