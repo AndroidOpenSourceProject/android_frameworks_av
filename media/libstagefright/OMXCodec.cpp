@@ -289,6 +289,12 @@ uint32_t OMXCodec::getComponentQuirks(
                 index, "output-buffers-are-unreadable")) {
         quirks |= kOutputBuffersAreUnreadable;
     }
+#ifdef STE_HARDWARE
+    if (list->codecHasQuirk(
+                index, "requires-store-metadata-before-idle")) {
+      quirks |= kRequiresStoreMetaDataBeforeIdle;
+    }
+#endif
 
     return quirks;
 }
@@ -711,12 +717,7 @@ status_t OMXCodec::setVideoPortFormatType(
              portIndex,
              index, format.eCompressionFormat, format.eColorFormat);
 #endif
-#ifdef STE_HARDWARE
-    if (list->codecHasQuirk(
-                index, "requires-store-metadata-before-idle")) {
-      quirks |= kRequiresStoreMetaDataBeforeIdle;
-    }
-#endif
+
 
         if (format.eCompressionFormat == compressionFormat
                 && format.eColorFormat == colorFormat) {
